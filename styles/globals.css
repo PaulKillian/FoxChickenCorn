@@ -100,7 +100,7 @@ a {
 .shadow {
   filter: drop-shadow(0 0 0.1rem rgb(46, 46, 46));
 }
-.imageRotateHorizontal {
+.x-rotate {
   -moz-animation: spinHorizontal 1.5s forwards;
   -o-animation: spinHorizontal 1.5s forwards;    
   -webkit-animation: spinHorizontal 1.5s forwards;
@@ -110,4 +110,16 @@ a {
 @keyframes spinHorizontal {
   0% { transform: rotateY(0deg); }
   100% { transform: rotateY(180deg); }
+}
+
+.far-shore-position {
+  bottom: 460px;
+  left: 559px;
+  right: 0;
+  top: 0;
+  position: relative;
+}
+.far-shore-chicken-position {
+  left: 1400px;
+  position: relative;
 }

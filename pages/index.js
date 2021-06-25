@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 import nearShore from '../public/images/near-shore.png'
 import farShore from '../public/images/far-shore.png'
@@ -14,10 +14,17 @@ import Particles from './components/particles'
 export default function Home() {
   const [clickedItem, setClickedItem] = useState('')
   const [itemInBoat, setItemInBoat] = useState('')
-  const [hideItemOnShore, setHideItemOnShore] = useState('')
+  const [placeItemOnShore, setPlaceItemOnShore] = useState(null)
+  const [animationEnd, setAnimationEnd] = useState(null)
+  
   useEffect(() => {
     Popover();
     Particles();
+    const boatImg = document.getElementById('boat')
+    const chicken = document.getElementById('chickenOnBoat')
+    boatImg.addEventListener('animationend', () => {
+      setAnimationEnd('Animation ended');
+    });
   })
 
   const moveItem = (item) => {
@@ -25,11 +32,10 @@ export default function Home() {
     setItemInBoat(item)
     const currentItem = document.getElementById(item);
     currentItem.classList.add('hidden')
+    moveBoat(item);
   }
 
-  console.log(clickedItem)
-
-  const moveBoat = () => {
+  const moveBoat = useCallback(() => {
     if(clickedItem === 'corn') {
       setItemInBoat('corn')
       const deadChicken = document.getElementById('chicken');
@@ -40,10 +46,13 @@ export default function Home() {
       const deadChicken = document.getElementById('corn');
       deadChicken.classList.add('dead')
     }
-    const boatImg = document.getElementById('boat')
-    boatImg.classList.toggle('boat-animation')
+  }, [])
+
+  const itemOnFarShore = (item) => {
+    setPlaceItemOnShore(item)
   }
 
+  console.log(placeItemOnShore)
 
   if (clickedItem === '') {
     return (
@@ -69,6 +78,7 @@ export default function Home() {
   } else if (clickedItem === 'corn' && itemInBoat === 'corn') {
     return (
       <main className={'landscape main-height'}>
+        <canvas className={'position-absolute'} id="cvs"></canvas>
         <Constraints />
         <div className={'d-flex justify-content-start align-items-end landscape'}>
           <div id={'fox'} aria-describedby="tooltip">
@@ -104,6 +114,7 @@ export default function Home() {
   } else if (clickedItem === 'fox' && itemInBoat === 'fox') {
     return (
       <main className={'landscape main-height'}>
+        <canvas className={'position-absolute'} id="cvs"></canvas>
         <Constraints />
         <div className={'d-flex justify-content-start align-items-end landscape'}>
           <div id={'fox'} className={'hidden'} aria-describedby="tooltip">
@@ -136,9 +147,41 @@ export default function Home() {
           </div>
         </main>
       )
+  } else if (animationEnd) {
+      return (
+        <main className={'landscape main-height'}>
+          <canvas className={'position-absolute'} id="cvs"></canvas>
+          <Constraints />
+        <div className={'d-flex justify-content-start align-items-end landscape'}>
+          <div id={'fox'} aria-describedby="tooltip">
+            <Fox />
+          </div>
+          <div id={'chicken'} className={'hidden'} aria-describedby="tooltip" >
+            <Chicken />
+          </div>
+          <div id={'corn'} aria-describedby="tooltip">
+          <div id={'tooltip'} role="tooltip" className={'bg-white p-2'}>I don't want to die!</div>
+            <Corn />
+          </div>
+          <div id={'boat'} className={'d-flex flex-column justify-content-end float far-shore-position'} onClick={moveBoat}>
+          <div className={'position-relative farmer-position'}>
+            <Farmer />
+          </div>
+          <div className={'position-absolute'}>
+            <Boat />
+          </div>
+        </div>
+        <div className={'position-absolute far-shore-chicken-position'} onClick={() => itemOnFarShore('chicken')}>
+            <Chicken />
+          </div>
+          {/* <Image src={farShore} alt="The far shore" /> */}
+        </div>
+      </main>
+      )
   } else {
     return (
       <main className={'landscape main-height'}>
+        <canvas className={'position-absolute'} id="cvs"></canvas>
         <Constraints />
       <div className={'d-flex justify-content-start align-items-end landscape'}>
         <div id={'fox'} aria-describedby="tooltip">
@@ -151,12 +194,13 @@ export default function Home() {
         <div id={'tooltip'} role="tooltip" className={'bg-white p-2'}>I don't want to die!</div>
           <Corn />
         </div>
-        <div id={'boat'} className={'d-flex flex-column justify-content-end float'} onClick={moveBoat}>
+        <div id={'boat'} className={'d-flex flex-column justify-content-end boat-animation'}>
         <div className={'position-relative farmer-position'}>
           <Farmer />
         </div>
-        <div className={'position-absolute'}>
-            <Chicken />
+        <div id={'chickenInBoat'} className={'position-absolute'} 
+          onClick={() => itemOnFarShore('chicken')}>
+          <Chicken />
         </div>
         <div className={'position-absolute'}>
           <Boat />
