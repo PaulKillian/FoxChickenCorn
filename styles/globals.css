@@ -47,6 +47,13 @@ a {
 .boat-animation {
   animation: boat-movement 10s forwards;
 }
+
+
+.to-near-shore {
+  animation: to-near-shore 10s forwards;
+  transform: translate(-200px, 0);
+}
+
 #tooltip {
   display: none;
 }
@@ -92,7 +99,7 @@ a {
 .glass {
   background: rgba( 0, 255, 255, 0.25 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-  backdrop-filter: blur( 11.5px );
+  backdrop-filter: blur( 4.5px );
   -webkit-backdrop-filter: blur( 11.5px );
   border-radius: 10px;
   border: 1px solid rgba( 255, 255, 255, 0.18 );

@@ -32,10 +32,10 @@ export default function Home() {
     setItemInBoat(item)
     const currentItem = document.getElementById(item);
     currentItem.classList.add('hidden')
-    moveBoat(item);
+    moveBoatToFarShore(item);
   }
 
-  const moveBoat = useCallback(() => {
+  const moveBoatToFarShore = useCallback(() => {
     if(clickedItem === 'corn') {
       setItemInBoat('corn')
       const deadChicken = document.getElementById('chicken');
@@ -47,6 +47,11 @@ export default function Home() {
       deadChicken.classList.add('dead')
     }
   }, [])
+
+  const moveBoatToNearShore = () => {
+    const boatImg = document.getElementById('boat')
+        boatImg.classList.add('to-near-shore')
+  }
 
   const itemOnFarShore = (item) => {
     setPlaceItemOnShore(item)
@@ -163,7 +168,7 @@ export default function Home() {
           <div id={'tooltip'} role="tooltip" className={'bg-white p-2'}>I don't want to die!</div>
             <Corn />
           </div>
-          <div id={'boat'} className={'d-flex flex-column justify-content-end float far-shore-position'} onClick={moveBoat}>
+          <div id={'boat'} className={'d-flex flex-column justify-content-end x-rotate far-shore-position'} onClick={moveBoatToNearShore}>
           <div className={'position-relative farmer-position'}>
             <Farmer />
           </div>
