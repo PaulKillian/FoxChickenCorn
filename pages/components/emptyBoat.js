@@ -5,7 +5,7 @@ import Image from 'next/image'
 const EmptyBoat = () => {
     const moveBoat = () => {
         const boatImg = document.getElementById('boat')
-        boatImg.classList.toggle('boat-animation')
+        boatImg.classList.add('boat-animation')
     }
 
     return (
