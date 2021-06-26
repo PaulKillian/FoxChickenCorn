@@ -10,8 +10,9 @@ export const Constraints = () => {
 
     return (
         <div className={'py-3 d-flex justify-content-center'}>
-            <div className={'glass col-6'}> 
-                <h4 className={'p-3'}>
+            <div className={'glass col-8'}>
+                <h1 className={'text-center'}>THE FOX, CHICKEN AND CORN</h1>
+                <h5 className={'p-3'}>
                     A farmer has to get a fox, a chicken, and GMO corn across a river.<br></br>
                     He has a rowboat, and it can only carry him and one other thing.<br></br><br></br>
                     
@@ -19,7 +20,7 @@ export const Constraints = () => {
                     If the chicken and the corn are left together, the chicken will eat the corn.<br></br><br></br>
 
                     How does the farmer do it?
-                </h4>
+                </h5>
                 <button className={'bt-color m-3 mb-4 p-2'} 
                     onClick={() => setrefresh(true)}>Try Again</button>
             </div>

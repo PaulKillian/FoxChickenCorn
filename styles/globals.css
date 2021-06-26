@@ -1,9 +1,13 @@
+@font-face {
+  font-family: Rustic;
+  src: url("../public/Rustic.otf") format("opentype");
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Rustic', sans-serif
 }
 
 a {
@@ -45,13 +49,21 @@ a {
   }
 }
 .boat-animation {
-  animation: boat-movement 10s forwards;
+  animation: boat-movement 2s forwards;
 }
 
+@keyframes slide-left 
+{
+  from {
+    transform: translate(0,0);
+  }
 
-.to-near-shore {
-  animation: to-near-shore 10s forwards;
-  transform: translate(-200px, 0);
+  to {
+    transform: translate(-35vw,0);
+  }
+}
+.move-to-near-shore {
+  animation: slide-left 2s forwards;
 }
 
 #tooltip {
@@ -85,7 +97,7 @@ a {
     animation-name: dissolve;
   }
 }
-/* .float { 
+.float { 
 	animation-name: floating;
   animation-duration: 3s;
   animation-iteration-count: infinite;
@@ -93,9 +105,9 @@ a {
 }
 @keyframes floating {
   0% { transform: translate(0,  0px); }
-  50%  { transform: translate(0, 15px); }
+  50%  { transform: translate(0, 10px); }
   100%   { transform: translate(0, -0px); }    
-} */
+}
 .glass {
   background: rgba( 0, 255, 255, 0.25 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );

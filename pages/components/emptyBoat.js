@@ -9,7 +9,7 @@ const EmptyBoat = () => {
     }
 
     return (
-        <div id={'boat'} className={'d-flex flex-column justify-content-end float'} onClick={moveBoat}>
+      <div id={'boat'} className={'d-flex flex-column justify-content-end float'} onClick={moveBoat}>
         <div className={'position-relative farmer-position'}>
           <Image className={'shadow'}
             src={farmer} 
