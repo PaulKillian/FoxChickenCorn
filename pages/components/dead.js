@@ -76,7 +76,6 @@ export const DeadChicken = () => {
                 </div>
                 </div>
             </div>
-            {/* <Image src={farShore} alt="The far shore" /> */}
             </div>
         </main>
     )

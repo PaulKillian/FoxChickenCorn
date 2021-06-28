@@ -87,7 +87,7 @@ a {
   z-index: -1;
 }
 .bt-color {
-  background-color: #5D3F59;
+  background-color: #44A4B4;
   color: #F5E2DC;
   border: none;
   border-radius: 5px;
@@ -109,11 +109,11 @@ a {
   100%   { transform: translate(0, -0px); }    
 }
 .glass {
-  background: rgba( 0, 255, 255, 0.25 );
+  background: rgba( 55, 72, 95, 0.30 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-  backdrop-filter: blur( 4.5px );
-  -webkit-backdrop-filter: blur( 11.5px );
-  border-radius: 10px;
+  backdrop-filter: blur( 1.5px );
+  -webkit-backdrop-filter: blur( 1.5px );
+  border-radius: 12px;
   border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 .shadow {

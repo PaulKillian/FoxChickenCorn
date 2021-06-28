@@ -9,10 +9,10 @@ export const Constraints = () => {
     })
 
     return (
-        <div className={'py-3 d-flex justify-content-center'}>
-            <div className={'glass col-8'}>
-                <h1 className={'text-center'}>THE FOX, CHICKEN AND CORN</h1>
-                <h5 className={'p-3'}>
+        <div className={'py-3 d-flex justify-content-center mb-3'}>
+            <div className={'glass col-6'}>
+                <h1 className={'text-center text-white'}>THE FOX, CHICKEN AND CORN</h1>
+                <h5 className={'p-3 text-white'}>
                     A farmer has to get a fox, a chicken, and GMO corn across a river.<br></br>
                     He has a rowboat, and it can only carry him and one other thing.<br></br><br></br>
                     
