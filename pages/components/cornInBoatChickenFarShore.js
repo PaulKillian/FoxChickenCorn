@@ -8,14 +8,14 @@ export const CornInBoatChickenFarShore = () => {
             <Constraints />
         <div className={'d-flex justify-content-start align-items-end landscape'}>
             <div id={'fox'}>
-            <Fox />
+                <Fox />
             </div>
             <div id={'chicken'} className={'hidden'} >
-            <Chicken />
+                <Chicken />
             </div>
             <div id={'corn'} className={'hidden'}>
-            <div id={'tooltip'} role="tooltip" className={'bg-white p-2'}>I don't want to die!</div>
-            <Corn />
+                <div id={'tooltip'} role="tooltip" className={'bg-white p-2'}>I don't want to die!</div>
+                <Corn />
             </div>
             <div className={'float'}>
             <div id={'boat'} className={'d-flex flex-column justify-content-end boat-animation'}>

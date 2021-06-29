@@ -34,6 +34,7 @@ a {
 #chicken,
 #fox {
   cursor: pointer;
+  z-index: 1;
 }
 .farmer-position {
   top: 1.5rem;

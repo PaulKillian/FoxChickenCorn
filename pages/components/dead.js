@@ -6,7 +6,6 @@ import poof from '../../public/images/poof.png'
 export const DeadCorn = () => {
     return (
         <main className={'landscape main-height'}>
-          <canvas className={'position-absolute'} id="cvs"></canvas>
           <Constraints />
           <div className={'d-flex justify-content-start align-items-end landscape'}>
             <div id={'fox'} className={'hidden'} aria-describedby="tooltip">
@@ -45,7 +44,7 @@ export const DeadCorn = () => {
 export const DeadChicken = () => {
     return (
         <main className={'landscape main-height'}>
-            <canvas className={'position-absolute'} id="cvs"></canvas>
+
             <Constraints />
             <div className={'d-flex justify-content-start align-items-end landscape'}>
             <div id={'fox'} aria-describedby="tooltip">

@@ -8,6 +8,7 @@ import { Constraints } from './components/constraints'
 import Particles from './components/particles'
 import { DeadChicken, DeadCorn } from './components/dead'
 import { CornInBoatChickenFarShore } from './components/cornInBoatChickenFarShore'
+import { FoxInBoatChickenFarShore } from './components/foxInBoatChickenFarShore'
 
 export default function Home() {
   const [clickedItem, setClickedItem] = useState('')
@@ -24,9 +25,15 @@ export default function Home() {
       boatImg.addEventListener('animationend', () => {
       setAnimationEnd('Animation ended');
     });
-  } else if (clickedItem === 'Animation ended-chicken') {
+  } else if (clickedItem === 'corn+chicken') {
       boatImg.addEventListener('animationend', () => {
         setAnimationEnd('Animation ended');
+        setItemOnFarShore('corn')
+      });
+    } else if (clickedItem === 'fox+chicken') {
+      boatImg.addEventListener('animationend', () => {
+        setAnimationEnd('Animation ended');
+        setItemOnFarShore('fox')
       });
     } else if (animationEnd === 'Animation ended-chicken') {
       boatImg.addEventListener('animationend', () => {
@@ -34,6 +41,7 @@ export default function Home() {
       });
     } 
   })
+  console.log(itemOnFarShore)
 
   const moveItem = (item) => {
     setClickedItem(item)
@@ -47,6 +55,8 @@ export default function Home() {
     if (placeItemOnFarShore === 'chicken' && clickedItem === 'corn') {
       setItemInBoat('corn+chicken')
       return
+    } else if (placeItemOnFarShore === 'chicken' && clickedItem === 'fox') {
+      setItemInBoat('fox+chicken')
     } else if(clickedItem === 'corn') {
       setItemInBoat('corn')
       const deadChicken = document.getElementById('chicken');
@@ -57,8 +67,6 @@ export default function Home() {
       deadChicken.classList.add('dead')
     }
   }
-
-  console.log({animationEnd, "clicked":clickedItem, "inBoat":itemInBoat})
 
   const endOfFarShoreAnimation = () => {
     boatImg.addEventListener('animationend', () => {
@@ -79,7 +87,6 @@ export default function Home() {
   if (clickedItem === '') {
     return (
       <main className={'landscape main-height'}>
-        <canvas className={'position-absolute'} id="cvs"></canvas>
         <Constraints />
         <div className={'d-flex justify-content-start align-items-end'}>
           <div id={'fox'} onClick={() => moveItem('fox')}>
@@ -104,10 +111,9 @@ export default function Home() {
   } else if (animationEnd === 'Animation ended-chicken' && clickedItem === 'chicken') {
     return (
       <main className={'landscape main-height'}>
-        <canvas className={'position-absolute'} id="cvs"></canvas>
         <Constraints />
         <div className={'d-flex justify-content-start align-items-end'}>
-          <div id={'fox'} onClick={() => moveItem('fox')}>
+          <div id={'fox'} onClick={() => setClickedItem('fox+chicken')}>
             <Fox />
           </div>
           <div id={'chicken'} className={'hidden'} onClick={() => moveItem('chicken')}>
@@ -137,7 +143,6 @@ export default function Home() {
   else if (itemOnFarShore === 'chicken') {
     return (
       <main className={'landscape main-height'}>
-        <canvas className={'position-absolute'} id="cvs"></canvas>
         <Constraints />
         <div className={'d-flex justify-content-start align-items-end'}>
           <div id={'fox'} onClick={() => moveItem('fox')}>
@@ -159,10 +164,43 @@ export default function Home() {
     return (
       <DeadCorn />
     )
+  } else if (itemOnFarShore === 'corn') {
+    return (
+      <main className={'landscape main-height'}>
+        <Constraints />
+      <div className={'d-flex justify-content-start align-items-end landscape'}>
+        <div id={'fox'}>
+          <Fox />
+        </div>
+        <div id={'chicken'} className={'hidden'} >
+          <Chicken />
+        </div>
+        <div id={'corn'} className={'hidden'} >
+        <div id={'tooltip'} role="tooltip" className={'bg-white p-2'}>I don't want to die!</div>
+          <Corn />
+        </div>
+        <div className={'float'}>
+          <div id={'boat-to-near-shore'}>
+            <div id={'boat'} className={'d-flex flex-column justify-content-end x-rotate far-shore-position'} 
+              onClick={() => moveBoatToNearShore('chicken')}>
+            <div className={'position-relative farmer-position'}>
+              <Farmer />
+            </div>
+            <div className={'position-absolute'}>
+              <Boat />
+            </div>
+            </div>
+            <div className={'position-absolute far-shore-chicken-position'}>
+              <Corn />
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    )
   } else if (animationEnd === 'Animation ended') {
       return (
         <main className={'landscape main-height'}>
-          <canvas className={'position-absolute'} id="cvs"></canvas>
           <Constraints />
         <div className={'d-flex justify-content-start align-items-end landscape'}>
           <div id={'fox'}>
@@ -198,10 +236,13 @@ export default function Home() {
     return (
       <CornInBoatChickenFarShore />
     )
+  } else if (clickedItem === 'fox+chicken') {
+    return (
+      <FoxInBoatChickenFarShore />
+    )
   } else {
     return (
       <main className={'landscape main-height'}>
-        <canvas className={'position-absolute'} id="cvs"></canvas>
         <Constraints />
       <div className={'d-flex justify-content-start align-items-end landscape'}>
         <div id={'fox'}>
