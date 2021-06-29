@@ -7,6 +7,7 @@ import EmptyBoat from './components/emptyBoat'
 import { Constraints } from './components/constraints'
 import Particles from './components/particles'
 import { DeadChicken, DeadCorn } from './components/dead'
+import { CornInBoatChickenFarShore } from './components/cornInBoatChickenFarShore'
 
 export default function Home() {
   const [clickedItem, setClickedItem] = useState('')
@@ -23,14 +24,16 @@ export default function Home() {
       boatImg.addEventListener('animationend', () => {
       setAnimationEnd('Animation ended');
     });
-  } else if (animationEnd === 'Animation ended-chicken') {
-    boatImg.addEventListener('animationend', () => {
-      setAnimationEnd('Animation ended');
-    });
+  } else if (clickedItem === 'Animation ended-chicken') {
+      boatImg.addEventListener('animationend', () => {
+        setAnimationEnd('Animation ended');
+      });
+    } else if (animationEnd === 'Animation ended-chicken') {
+      boatImg.addEventListener('animationend', () => {
+        setAnimationEnd('Animation ended');
+      });
     } 
   })
-
-  console.log(animationEnd)
 
   const moveItem = (item) => {
     setClickedItem(item)
@@ -40,18 +43,22 @@ export default function Home() {
     moveBoatToFarShore(item);
   }
 
-  const moveBoatToFarShore = useCallback(() => {
-    if(clickedItem === 'corn') {
+  const moveBoatToFarShore = () => {
+    if (placeItemOnFarShore === 'chicken' && clickedItem === 'corn') {
+      setItemInBoat('corn+chicken')
+      return
+    } else if(clickedItem === 'corn') {
       setItemInBoat('corn')
       const deadChicken = document.getElementById('chicken');
       deadChicken.classList.add('dead')
-    }
-    if(clickedItem === 'fox') {
+    } else if(clickedItem === 'fox') {
       setItemInBoat('fox')
       const deadChicken = document.getElementById('corn');
       deadChicken.classList.add('dead')
     }
-  }, [])
+  }
+
+  console.log({animationEnd, "clicked":clickedItem, "inBoat":itemInBoat})
 
   const endOfFarShoreAnimation = () => {
     boatImg.addEventListener('animationend', () => {
@@ -67,13 +74,6 @@ export default function Home() {
       setAnimationEnd('Animation ended-chicken');
     })
   }
-
-  console.log(placeItemOnFarShore)
-
-  // const moveBoatToNearShore = () => {
-  //   setPlaceItemOnShore(item)
-
-  // }
 
 
   if (clickedItem === '') {
@@ -101,7 +101,7 @@ export default function Home() {
     return (
       <DeadChicken />
     )
-  } else if (animationEnd === 'Animation ended-chicken') {
+  } else if (animationEnd === 'Animation ended-chicken' && clickedItem === 'chicken') {
     return (
       <main className={'landscape main-height'}>
         <canvas className={'position-absolute'} id="cvs"></canvas>
@@ -113,7 +113,7 @@ export default function Home() {
           <div id={'chicken'} className={'hidden'} onClick={() => moveItem('chicken')}>
             <Chicken />
           </div>
-          <div id={'corn'} onClick={() => moveItem('corn')}>
+          <div id={'corn'} onClick={() => setClickedItem('corn+chicken')}>
           <div id={'tooltip'} role="tooltip" className={'bg-white p-2'}>I don't want to die!</div>
             <Corn />
           </div>
@@ -130,7 +130,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-          {/* <Image src={farShore} alt="The far shore" /> */}
         </div>
       </main>
     )
@@ -160,7 +159,7 @@ export default function Home() {
     return (
       <DeadCorn />
     )
-  } else if (animationEnd) {
+  } else if (animationEnd === 'Animation ended') {
       return (
         <main className={'landscape main-height'}>
           <canvas className={'position-absolute'} id="cvs"></canvas>
@@ -195,13 +194,11 @@ export default function Home() {
         </div>
       </main>
       )
-  } else if (animationEnd === 'Animation ended-chicken' && itemOnFarShore === 'chicken') {
+  } else if (clickedItem === 'corn+chicken') {
     return (
-      <h1>hi</h1>
+      <CornInBoatChickenFarShore />
     )
-  } 
-  
-  else {
+  } else {
     return (
       <main className={'landscape main-height'}>
         <canvas className={'position-absolute'} id="cvs"></canvas>
