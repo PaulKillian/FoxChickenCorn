@@ -9,6 +9,7 @@ import Particles from './components/particles'
 import { DeadChicken, DeadCorn } from './components/dead'
 import { CornInBoatChickenFarShore } from './components/cornInBoatChickenFarShore'
 import { FoxInBoatChickenFarShore } from './components/foxInBoatChickenFarShore'
+import { ChickenInBoatEmptyFarShore } from './components/chickenInBoatEmptyFarShore'
 
 export default function Home() {
   const [clickedItem, setClickedItem] = useState('')
@@ -100,7 +101,6 @@ export default function Home() {
             <Corn />
           </div>
           <EmptyBoat />
-          {/* <Image src={farShore} alt="The far shore" /> */}
         </div>
       </main>
     ) 
@@ -123,9 +123,9 @@ export default function Home() {
           <div id={'tooltip'} role="tooltip" className={'bg-white p-2'}>I don't want to die!</div>
             <Corn />
           </div>
-          <div className={'float'}>
+          <div className={'float x-rotate-near-shore'}>
             <div id={'boat-to-near-shore'}>
-              <div id={'boat'} className={'d-flex flex-column justify-content-end x-rotate far-shore-position'} 
+              <div id={'boat'} className={'d-flex flex-column justify-content-end rotate far-shore-position'} 
                 onClick={() => moveBoatToNearShore('chicken')}>
               <div className={'position-relative farmer-position'}>
                 <Farmer />
@@ -242,36 +242,9 @@ export default function Home() {
     )
   } else {
     return (
-      <main className={'landscape main-height'}>
-        <Constraints />
-      <div className={'d-flex justify-content-start align-items-end landscape'}>
-        <div id={'fox'}>
-          <Fox />
-        </div>
-        <div id={'chicken'} className={'hidden'} >
-          <Chicken />
-        </div>
-        <div id={'corn'}>
-        <div id={'tooltip'} role="tooltip" className={'bg-white p-2'}>I don't want to die!</div>
-          <Corn />
-        </div>
-        <div className={'float'}>
-          <div id={'boat'} className={'d-flex flex-column justify-content-end boat-animation'}>
-            <div className={'position-relative farmer-position'}>
-              <Farmer />
-            </div>
-            <div id={'chickenInBoat'} className={'position-absolute'}>
-              <Chicken />
-            </div>
-            <div className={'position-absolute'}>
-              <Boat />
-            </div>
-          </div>
-        </div>
-        </div>
-    </main>
-    )
-  }
+      <ChickenInBoatEmptyFarShore />
+    ) 
+    }
 }
 
 //   function Boat(item) {

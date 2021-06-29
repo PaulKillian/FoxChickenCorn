@@ -131,6 +131,17 @@ a {
   0% { transform: rotateY(0deg); }
   100% { transform: rotateY(180deg); }
 }
+.x-rotate-near-shore {
+  -moz-animation: spinHorizontalnear 1.5s forwards;
+  -o-animation: spinHorizontalnear 1.5s forwards;    
+  -webkit-animation: spinHorizontalnear 1.5s forwards;
+  animation: spinHorizontalnear 1.5s forwards;
+}
+
+@keyframes spinHorizontalnear {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(180deg); }
+}
 
 .far-shore-position {
   bottom: 460px;
@@ -142,4 +153,9 @@ a {
 .far-shore-chicken-position {
   left: 1400px;
   position: relative;
+}
+
+.rotate {
+  transform: rotateY(180deg);
+  padding-left: 4rem;
 }
