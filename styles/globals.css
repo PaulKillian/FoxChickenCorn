@@ -62,6 +62,7 @@ a {
   to {
     transform: translate(-35vw,0);
   }
+  
 }
 .move-to-near-shore {
   animation: slide-left 2s forwards;
@@ -74,6 +75,10 @@ a {
 #tooltip[data-show] {
   display: block;
 }
+.justify-content-end-custom {
+  display: flex;
+  justify-content: flex-end;
+}
 
 .hidden {
   visibility: hidden;
@@ -83,9 +88,6 @@ a {
 }
 .animation {
   animation: pulse 1s linear infinite both;
-}
-.front {
-  z-index: -1;
 }
 .bt-color {
   background-color: #44A4B4;
@@ -143,19 +145,36 @@ a {
   100% { transform: rotateY(180deg); }
 }
 
-.far-shore-position {
+.far-shore-boat-position {
   bottom: 460px;
   left: 559px;
   right: 0;
   top: 0;
   position: relative;
 }
-.far-shore-chicken-position {
-  left: 1400px;
+.far-position-2-items {
+  bottom: 460px;
+  left: 394px;
+  right: 0;
+  top: 0;
   position: relative;
 }
+/* .far-shore-chicken-position {
+  left: 1400px;
+  position: relative;
+} */
 
 .rotate {
   transform: rotateY(180deg);
   padding-left: 4rem;
+}
+.rotate2 {
+  transform: rotate(180deg);
+}
+
+.z-front {
+  z-index: 2;
+}
+.z-front-3 {
+  z-index: 3;
 }

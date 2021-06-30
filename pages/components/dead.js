@@ -79,3 +79,91 @@ export const DeadChicken = () => {
         </main>
     )
 }
+
+export const DeadCornFarShore = () => {
+  return (
+    <main className={'landscape main-height'}>
+      <Constraints />
+    <div id={'all-elements'}className={'d-flex justify-content-start align-items-end'}>
+      <div id={'fox'}>
+        <Fox />
+      </div>
+      <div id={'chicken'} className={'hidden'} >
+        <Chicken />
+      </div>
+      <div className={'hidden'} >
+      <div id={'tooltip'} role="tooltip" className={'bg-white p-2'}>I don't want to die!</div>
+        <Corn />
+      </div>
+      <div className={'float z-front-3 rotate far-position-2-items'}>
+          <div id={'boat-to-near-shore'}>
+            <div id={'boat'} className={'d-flex flex-column justify-content-end x-rotate'} 
+              onClick={() => moveBoatToNearShore('chicken')}>
+              <div className={'position-relative farmer-position'}>
+                <Farmer />
+              </div>
+              <div className={'position-absolute'}>
+                <Boat />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id={'corn'} className={'position-absolute col-10 justify-content-end-custom z-front'}>
+          <Image className={'grow'}
+              src={poof} 
+              alt="Poof" 
+              width={200}
+              height={200}
+            />
+        </div>
+        <div id={'chicken'} className={'position-absolute col-11 justify-content-end-custom'}>
+          <Chicken />
+        </div>
+      </div>
+  </main>
+  )
+}
+
+export const DeadChickenFarShore = () => {
+  return (
+    <main className={'landscape main-height'}>
+      <Constraints />
+    <div id={'all-elements'}className={'d-flex justify-content-start align-items-end'}>
+      <div id={'fox'} className={'hidden'}>
+        <Fox />
+      </div>
+      <div id={'chicken'} className={'hidden'} >
+        <Chicken />
+      </div>
+      <div >
+      <div id={'tooltip'} role="tooltip" className={'bg-white p-2'}>I don't want to die!</div>
+        <Corn />
+      </div>
+      <div className={'float z-front-3 rotate2 far-position-2-items'}>
+          <div id={'boat-to-near-shore'}>
+            <div id={'boat'} className={'d-flex flex-column justify-content-end'} 
+              onClick={() => moveBoatToNearShore('chicken')}>
+              <div className={'position-relative farmer-position'}>
+                <Farmer />
+              </div>
+              <div className={'position-absolute'}>
+                <Boat />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id={'corn'} className={'position-absolute col-10 justify-content-end-custom z-front'}>
+          <Fox />
+        </div>
+        <div id={'chicken'} className={'position-absolute col-11 justify-content-end-custom'}>
+          <Image className={'grow'}
+              src={poof} 
+              alt="Poof" 
+              width={200}
+              height={200}
+            />
+        </div>
+      </div>
+  </main>
+  )
+}

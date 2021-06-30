@@ -3,13 +3,8 @@ import farmer from '../../public/images/farmer.png'
 import Image from 'next/image'
 
 const EmptyBoat = () => {
-    const moveBoat = () => {
-        const boatImg = document.getElementById('boat')
-        boatImg.classList.add('boat-animation')
-    }
-
     return (
-      <div id={'boat'} className={'d-flex flex-column justify-content-end float'} onClick={moveBoat}>
+      <div id={'boat'} className={'d-flex flex-column justify-content-end float'}>
         <div className={'position-relative farmer-position'}>
           <Image className={'shadow'}
             src={farmer} 

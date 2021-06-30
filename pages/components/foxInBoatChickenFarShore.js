@@ -30,6 +30,9 @@ export const FoxInBoatChickenFarShore = () => {
                 </div>
             </div>
             </div>
+            <div className={'position-absolute col-11 d-flex justify-content-end'} >
+                <Chicken />
+            </div>
         </div>
         </main>
     ) 
