@@ -1,5 +1,5 @@
 import { Constraints } from './constraints'
-import { Fox, Chicken, Corn, Boat, Farmer } from './allItems'
+import { Fox, Chicken, Corn, Boat, Farmer } from './nearShore'
 import Image from 'next/image'
 import poof from '../../public/images/poof.png'
 

@@ -1,5 +1,5 @@
 import { Constraints } from './constraints'
-import { Fox, Chicken, Corn, Boat, Farmer } from './allItems'
+import { Fox, Chicken, Corn, Boat, Farmer } from './nearShore'
 
 export const CornInBoatChickenFarShore = () => {
     return (
