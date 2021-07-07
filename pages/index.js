@@ -1,22 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
-import {Fox, Chicken, Corn, Boat, Farmer, items} from './components/nearShore'
-import $, { event } from "jquery";
 import 'bootstrap/dist/css/bootstrap.css'
-// import Popover from './components/popover'
-import EmptyBoat from './components/emptyBoat'
+import BoatAndFarmer from './components/boatAndFarmer'
 import { Constraints } from './components/constraints'
 import Particles from './components/particles'
-import { Item } from "./components/Item"
 import Image from 'next/image'
 import chicken from '../public/images/chicken.png'
 import corn from '../public/images/corn.png'
 import fox from '../public/images/fox.png'
-import { DeadChicken, DeadCorn, DeadCornFarShore, DeadChickenFarShore } from './components/dead'
-import { CornInBoatChickenFarShore } from './components/cornInBoatChickenFarShore'
-import { FoxInBoatChickenFarShore } from './components/foxInBoatChickenFarShore'
-import { ChickenInBoatEmptyFarShore } from './components/chickenInBoatEmptyFarShore'
-import { ChickenInBoatCornFarShore } from './components/chickenInBoatCornFarShore'
 import { NearShore } from './components/nearShore'
+import { FarShore } from './components/farShore'
 
 export default function Home() {
   const [clickedItem, setClickedItem] = useState(null)
@@ -25,67 +17,49 @@ export default function Home() {
       img: fox,
       alt: 'fox',
       id: 1,
-      hidden: 'hidden'
     },
     {
       img: chicken,
       alt: 'chicken',
       id: 2,
-      hidden: 'hidden'
     },
     {
       img: corn,
       alt: 'corn',
       id: 3,
-      hidden: 'hidden'
     }
   ])
-  const [itemInBoat, setItemInBoat] = useState('')
+  const [placeItemInBoat, setPlaceItemInBoat] = useState(null)
+  const [itemInBoat, setItemInBoat] = useState(null)
   const [placeItemOnFarShore, setPlaceItemOnFarShore] = useState(null)
   const [animationEnd, setAnimationEnd] = useState(null)
   const [itemOnFarShore, setItemOnFarShore] = useState(null)
   
   useEffect(() => {
-    // Popover();
     Particles();
-    // const boatImg = document.getElementById('boat')
-    // if(clickedItem === 'chicken') {
-    //   boatImg.addEventListener('animationend', () => {
-    //     setAnimationEnd('boat landed on far shore');
-    //   });
-    // } else if (itemOnFarShore === 'corn+chickenOnFarShore') {
-    //     return
-    // } else if (itemOnFarShore === 'fox+chicken') {
-    //     return
-    // } else if (clickedItem === 'corn+chickenOnFarShore') {
-    //     boatImg.addEventListener('animationend', () => {
-    //       setAnimationEnd('boat landed on far shore');
-    //       setItemOnFarShore('corn')
-    //     });
-    // } else if (clickedItem === 'fox+chicken') {
-    //     boatImg.addEventListener('animationend', () => {
-    //       setAnimationEnd('boat landed on far shore');
-    //       setItemOnFarShore('fox')
-    //     });
-    // } else if (animationEnd === 'Animation ended/chicken on far shore') {
-    //     boatImg.addEventListener('animationend', () => {
-    //       setAnimationEnd('boat landed on far shore');
-    //     });
-    //   } 
+
+    const boat = document.getElementById('boat')
+    boat.addEventListener('animationend', () => {
+      setAnimationEnd('boat landed on far shore');
+    })
   })
 
-
-  const checkItem = (id) => {
-    if (id === 1) {
-        setClickedItem('corn')
-    } else if (id === 2) {
-        setClickedItem('boat')
+  const checkItem = (item) => {
+    if (item.id === 1) {
+        setClickedItem(item)
+        setPlaceItemInBoat([item])
+    } else if (item.id === 2) {
+        setClickedItem(item)
+        setPlaceItemInBoat([item])
     } else {
-        setClickedItem('chicken')
-    } 
-    // setClickedItem(item)
-    // willBeEaten(item);
+        setClickedItem(item)
+        setPlaceItemInBoat([item])
+    }
   }
+
+  // const placeItemInBoat = (item) => {
+
+  // }
 
 //   const willBeEaten = (item) => {
 //     if(clickedItem === 'corn') {
@@ -145,13 +119,20 @@ export default function Home() {
     return (
       <main className={'landscape main-height'}> 
         <Constraints />
-        <div className={'d-flex justify-content-start align-items-end'}>
-          <NearShore 
-            checkItem={checkItem} 
-            nearShoreItems={nearShoreItems}
-            clickedItem={clickedItem}
-          />
-          <EmptyBoat />
+        <div className={'d-flex justify-content-between'}>
+          <div className={'d-flex justify-content-start align-items-end'}>
+            <NearShore 
+              checkItem={checkItem} 
+              nearShoreItems={nearShoreItems}
+              clickedItem={clickedItem}
+            />
+            <BoatAndFarmer 
+              clickedItem={clickedItem}
+              nearShoreItems={nearShoreItems}
+              placeItemInBoat={placeItemInBoat}
+            />
+          </div>
+          <FarShore />
         </div>
       </main>
     )
