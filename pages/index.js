@@ -38,6 +38,8 @@ export default function Home() {
     Particles();
   })
 
+  console.log(itemOnFarShore)
+
   const checkItem = (item) => {
     if (item.id === 1) {
         setClickedItem(item)
@@ -52,10 +54,13 @@ export default function Home() {
     itemDropOff(item)
   }
 
-  const sendBoatToFarShore = () => {
+  const sendBoatToFarShore = useCallback(() => {
     const boat = document.getElementById('boat-container')
     boat.classList.add('boat-animation')
-  }
+    boat.addEventListener('animationend', () => {
+      setBoatIsOnNearShore(false)
+    })
+  })
 
   const itemDropOff = (item) => {
     const boat = document.getElementById('boat')
@@ -63,17 +68,23 @@ export default function Home() {
       setAnimationEnd('boat landed on far shore');
       const itemForFarShoreDropOff = [item]
       setItemOnFarShore(itemForFarShoreDropOff);
-      setBoatIsOnNearShore(false)
     })
   }
 
-  const sendBoatToNearShore = () => {
+  const sendBoatToNearShore = useCallback(() => {
     const boat = document.getElementById('boat-container')
     boat.classList.add('boat-animation-to-nearShore')
     boat.addEventListener('animationend', () => {
       boat.classList.remove('boat-animation-to-nearShore', 'boat-animation')
       setBoatIsOnNearShore(true)
+      removeItemFromBoat()
     })
+  })
+
+  const removeItemFromBoat = () => {
+    itemOnFarShore.legnth = 1
+    ? setPlaceItemInBoat([])
+    : null
   }
 
   return (
