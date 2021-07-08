@@ -1,14 +1,22 @@
+import { useEffect } from 'react'
 import boat from '../../public/images/boat.png'
 import farmer from '../../public/images/farmer.png'
 import Image from 'next/image'
 
 function BoatAndFarmer(props) {
-    console.log(props.placeItemInBoat)
-    console.log(props.clickedItem)
     if (props.clickedItem) {
         return (
-            <div className={'boat-animation'}> 
-                <div id={'boat'} className={'d-flex flex-column justify-content-end float'}>
+            <div id={'boat-container'} onClick={
+                    props.boatIsOnNearShore
+                    ? () => props.sendBoatToFarShore()
+                    : () => props.sendBoatToNearShore()
+                }>
+                <div id={'boat'} className={'d-flex flex-column justify-content-end float'}
+                className={
+                        props.itemOnFarShore.length !== 0
+                        ? 'd-flex flex-column justify-content-end float far-shore-rotate' 
+                        : 'd-flex flex-column justify-content-end float'
+                    }> 
                     <div className={'position-relative farmer-position'}>
                         <Image className={'shadow'}
                         src={farmer} 
@@ -17,12 +25,15 @@ function BoatAndFarmer(props) {
                         height={280}
                         />
                     </div>
-                    <div className={'position-absolute'}> 
+                    <div className={
+                        props.itemOnFarShore.length !== 0
+                        ? 'hidden position-absolute' 
+                        : 'position-absolute'
+                    }> 
                     {props.placeItemInBoat.map(item => {
                         item.alt === props.clickedItem.alt
                             return (
-                                <Image className={props.clickedItem === item.alt ? 'hidden' : null}
-                                    onClick={() => props.checkItem(item.id)}
+                                <Image
                                     key={item.id}
                                     src={item.img}
                                     alt={item.alt} 

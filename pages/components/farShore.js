@@ -1,12 +1,30 @@
+import { useEffect } from 'react'
 import Image from 'next/image'
 
 export const FarShore = (props) => {
-    return (
-        null
-    )
-    return (
-        <div className={'d-flex justify-content-end align-items-end'}>
-            <h1>hi</h1>
-        </div>
-    )
+    useEffect(() => {
+        // props.farShoreItems(props.itemOnFarShore)
+    })
+    if (props.animationEnd) {
+        return (
+            <div className={'d-flex justify-content-end align-items-end'}>
+            {props.itemOnFarShore.map(item => {
+                return (
+                    <Image onClick={() => props.checkItem(item)}
+                    key={item.id}
+                    src={item.img} 
+                    alt={item.alt} 
+                    width={130}
+                    height={150}
+                    />
+                )
+                })}  
+            </div>
+        )
+    } else {
+        return (
+            null
+        )
+    }
+    
 }

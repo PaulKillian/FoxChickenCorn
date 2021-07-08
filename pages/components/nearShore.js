@@ -5,7 +5,7 @@ export const NearShore = (props) => {
   if (props.clickedItem) {
     return (
       <div className={'d-flex justify-content-start align-items-end'}>
-        {props.nearShoreItems.map(item => {
+        {props.items.map(item => {
           return (
             <Image className={props.clickedItem.alt === item.alt ? 'hidden' : null}
               key={item.id}
@@ -21,7 +21,7 @@ export const NearShore = (props) => {
   } else {
     return (
       <div className={'d-flex justify-content-start align-items-end'}>
-        {props.nearShoreItems.map(item => {
+        {props.items.map(item => {
           return (
             <Image onClick={() => props.checkItem(item)}
               key={item.id}

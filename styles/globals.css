@@ -52,6 +52,19 @@ a {
 .boat-animation {
   animation: boat-movement 2s forwards;
 }
+@keyframes boat-movement-to-farShore
+{
+  from {
+    transform: translate(35vw,0);
+  }
+
+  to {
+    transform: translate(0,0);
+  }
+}
+.boat-animation-to-nearShore {
+  animation: boat-movement-to-farShore 2s forwards;
+}
 
 @keyframes slide-left 
 {
@@ -122,7 +135,7 @@ a {
 .shadow {
   filter: drop-shadow(0 0 0.1rem rgb(46, 46, 46));
 }
-.x-rotate {
+.far-shore-rotate {
   -moz-animation: spinHorizontal 1.5s forwards;
   -o-animation: spinHorizontal 1.5s forwards;    
   -webkit-animation: spinHorizontal 1.5s forwards;
