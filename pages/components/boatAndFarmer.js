@@ -26,8 +26,8 @@ function BoatAndFarmer(props) {
                         />
                     </div>
                     <div className={
-                        props.itemOnFarShore.length !== 0
-                        ? 'hidden position-absolute' 
+                        props.placeItemInBoat < 1
+                        ? 'hidden position-absolute'
                         : 'position-absolute'
                     }> 
                     {props.placeItemInBoat.map(item => {

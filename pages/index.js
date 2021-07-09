@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useMemo, useCallback, useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import BoatAndFarmer from './components/boatAndFarmer'
-import { Constraints } from './components/constraints'
+import { Constraints } from './components/riddleDescription'
 import Particles from './components/particles'
 import Image from 'next/image'
 import chicken from '../public/images/chicken.png'
@@ -29,10 +29,11 @@ export default function Home() {
       id: 3,
     }
   ])
-  const [placeItemInBoat, setPlaceItemInBoat] = useState(null)
+  const [placeItemInBoat, setPlaceItemInBoat] = useState([])
   const [boatIsOnNearShore, setBoatIsOnNearShore] = useState(true)
   const [animationEnd, setAnimationEnd] = useState(null)
   const [itemOnFarShore, setItemOnFarShore] = useState([])
+  const [hasBeenInBoat, setHasBeenInBoat] = useState([])
   
   useEffect(() => {
     Particles();
@@ -43,22 +44,34 @@ export default function Home() {
   const checkItem = (item) => {
     if (item.id === 1) {
         setClickedItem(item)
-        setPlaceItemInBoat([item])
     } else if (item.id === 2) {
         setClickedItem(item)
-        setPlaceItemInBoat([item])
     } else {
         setClickedItem(item)
-        setPlaceItemInBoat([item])
     }
+    placeInBoat(item)
+  }
+
+  const placeInBoat = (item) => {
+    setPlaceItemInBoat([item])
+    itemHasBeenInBoat(item)
+  }
+
+  const itemHasBeenInBoat = (item) => {
+    let boatItem = [...hasBeenInBoat]
+    boatItem.push(item)
+    setHasBeenInBoat(boatItem)
     itemDropOff(item)
   }
+
+  console.log(hasBeenInBoat)
 
   const sendBoatToFarShore = useCallback(() => {
     const boat = document.getElementById('boat-container')
     boat.classList.add('boat-animation')
     boat.addEventListener('animationend', () => {
       setBoatIsOnNearShore(false)
+      removeItemFromBoat()
     })
   })
 
@@ -77,7 +90,7 @@ export default function Home() {
     boat.addEventListener('animationend', () => {
       boat.classList.remove('boat-animation-to-nearShore', 'boat-animation')
       setBoatIsOnNearShore(true)
-      removeItemFromBoat()
+      setPlaceItemInBoat([])
     })
   })
 
@@ -87,8 +100,16 @@ export default function Home() {
     : null
   }
 
+  const Snow = useMemo(() => {
+    return (
+        <canvas className={'position-absolute'} id="cvs"></canvas>
+    ) 
+  }, [])
+
+
   return (
     <main className={'landscape main-height'}> 
+      <Snow />
       <Constraints />
       <div className={'d-flex justify-content-between'}>
         <div className={'d-flex justify-content-start align-items-end'}>
@@ -96,6 +117,9 @@ export default function Home() {
             checkItem={checkItem} 
             items={items}
             clickedItem={clickedItem}
+            itemOnFarShore={itemOnFarShore}
+            placeItemInBoat={placeItemInBoat}
+            hasBeenInBoat={hasBeenInBoat}
           />
           <BoatAndFarmer 
             clickedItem={clickedItem}

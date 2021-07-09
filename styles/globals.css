@@ -30,11 +30,8 @@ a {
   background-attachment: fixed;
 }
 #boat,
-#corn,
-#chicken,
-#fox {
+.item {
   cursor: pointer;
-  z-index: 1;
 }
 .farmer-position {
   top: 1.5rem;

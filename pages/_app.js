@@ -9,7 +9,6 @@ function MyApp({ Component, pageProps }) {
         <script src="https://unpkg.com/@popperjs/core@^2.0.0"></script>
       </Head>
       <>
-      <canvas className={'position-absolute'} id="cvs"></canvas>
       <Component {...pageProps} />
       </>
     </>
