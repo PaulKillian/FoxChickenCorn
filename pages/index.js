@@ -11,7 +11,6 @@ import { NearShore } from './components/nearShore'
 import { FarShore } from './components/farShore'
 
 export default function Home() {
-  const [clickedItem, setClickedItem] = useState(null)
   const [items, setitems] = useState([
     {
       img: fox,
@@ -29,6 +28,7 @@ export default function Home() {
       id: 3,
     }
   ])
+  const [clickedItem, setClickedItem] = useState(null)
   const [placeItemInBoat, setPlaceItemInBoat] = useState([])
   const [boatIsOnNearShore, setBoatIsOnNearShore] = useState(true)
   const [animationEnd, setAnimationEnd] = useState(null)
@@ -39,17 +39,30 @@ export default function Home() {
     Particles();
   })
 
-  console.log(itemOnFarShore)
-
   const checkItem = (item) => {
-    if (item.id === 1) {
-        setClickedItem(item)
-    } else if (item.id === 2) {
-        setClickedItem(item)
+    let checkItem = ''
+    if (item.alt === 'corn' && itemOnFarShore.length === 0) {
+      checkItem = 
+        {
+          dead: 'chicken',
+          hidden: 'corn'
+        }
+      setClickedItem(checkItem)
+    } else if (item.alt === 'fox' && itemOnFarShore.length === 0) {
+      checkItem = 
+        {
+          dead: 'corn',
+          hidden: 'fox'
+        }
+        setClickedItem(checkItem)
     } else {
-        setClickedItem(item)
+      checkItem = 
+        {
+          hidden: 'chicken'
+        }
+        setClickedItem(checkItem)
     }
-    placeInBoat(item)
+      placeInBoat(item)
   }
 
   const placeInBoat = (item) => {
@@ -64,16 +77,18 @@ export default function Home() {
     itemDropOff(item)
   }
 
-  console.log(hasBeenInBoat)
-
-  const sendBoatToFarShore = useCallback(() => {
-    const boat = document.getElementById('boat-container')
+  const sendBoatToFarShore = () => {
+    if (clickedItem.dead) {
+        return
+    } else {
+      const boat = document.getElementById('boat-container')
     boat.classList.add('boat-animation')
     boat.addEventListener('animationend', () => {
       setBoatIsOnNearShore(false)
       removeItemFromBoat()
     })
-  })
+  }
+}
 
   const itemDropOff = (item) => {
     const boat = document.getElementById('boat')
@@ -100,16 +115,17 @@ export default function Home() {
     : null
   }
 
-  const Snow = useMemo(() => {
-    return (
-        <canvas className={'position-absolute'} id="cvs"></canvas>
-    ) 
-  }, [])
+  // const Snow = useMemo(() => {
+  //   return (
+  //       <canvas className={'position-absolute'} id="cvs"></canvas>
+  //   ) 
+  // }, [])
 
 
   return (
     <main className={'landscape main-height'}> 
-      <Snow />
+      {/* <Snow /> */}
+      <canvas className={'position-absolute'} id="cvs"></canvas>
       <Constraints />
       <div className={'d-flex justify-content-between'}>
         <div className={'d-flex justify-content-start align-items-end'}>

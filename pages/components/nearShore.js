@@ -7,17 +7,19 @@ const disabled = () => {
 
 export const NearShore = (props) => {
   if (props.clickedItem) {
+    console.log(props.clickedItem)
     return (
       <div className={'d-flex justify-content-start align-items-end item'}>
         {props.items.map(item => {
+          // console.log({poof: poof}, {itemImg: item.img})
           return (
-            <Image className={props.clickedItem.alt === item.alt ? 'hidden' : null} 
+            <Image className={props.clickedItem.hidden === item.alt ? 'hidden' : null}
             onClick={props.placeItemInBoat.length > 0
                 ? () => disabled()
                 : () => props.checkItem(item)
               } 
               key={item.id}
-              src={props.clickedItem === item.alt ? poof : item.img}
+              src={props.clickedItem.dead === item.alt ? poof : item.img}
               alt={item.alt} 
               width={130}
               height={150}
