@@ -1,9 +1,8 @@
 import { useMemo, useCallback, useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import BoatAndFarmer from './components/boatAndFarmer'
-import { Constraints } from './components/riddleDescription'
+import { RiddleDescription } from './components/riddleDescription'
 import Particles from './components/particles'
-import Image from 'next/image'
 import chicken from '../public/images/chicken.png'
 import corn from '../public/images/corn.png'
 import fox from '../public/images/fox.png'
@@ -27,19 +26,27 @@ export default function Home() {
       alt: 'corn',
       id: 3,
     }
-  ])
-  const [clickedItem, setClickedItem] = useState(null)
-  const [placeItemInBoat, setPlaceItemInBoat] = useState([])
-  const [boatIsOnNearShore, setBoatIsOnNearShore] = useState(true)
-  const [animationEnd, setAnimationEnd] = useState(null)
-  const [itemOnFarShore, setItemOnFarShore] = useState([])
-  const [hasBeenInBoat, setHasBeenInBoat] = useState([])
-  
+  ]);
+
+  const [item, setItem] = useState([]);
+  const [clickedItem, setClickedItem] = useState(null);
+  const [placeItemInBoat, setPlaceItemInBoat] = useState([]);
+  const [boatIsOnNearShore, setBoatIsOnNearShore] = useState(true);
+  const [boatIsOnFarShore, setBoatIsOnFarShore] = useState(false)
+  const [animationEnd, setAnimationEnd] = useState(null);
+  const [itemOnFarShore, setItemOnFarShore] = useState([]);
+  const [hasBeenInBoat, setHasBeenInBoat] = useState([]);
+  const [isReset, setIsReset] = useState(false);
+
   useEffect(() => {
-    Particles();
-  })
+    snow()
+  }, []);
+  
+  const value = 0;
+  const snow = useCallback(() => {Particles()}, [value]);
 
   const checkItem = (item) => {
+    setItem(item)
     let checkItem = ''
     if (item.alt === 'corn' && itemOnFarShore.length === 0) {
       checkItem = 
@@ -67,14 +74,13 @@ export default function Home() {
 
   const placeInBoat = (item) => {
     setPlaceItemInBoat([item])
-    itemHasBeenInBoat(item)
+    itemDropOff(item)
   }
 
   const itemHasBeenInBoat = (item) => {
     let boatItem = [...hasBeenInBoat]
     boatItem.push(item)
     setHasBeenInBoat(boatItem)
-    itemDropOff(item)
   }
 
   const sendBoatToFarShore = () => {
@@ -82,13 +88,15 @@ export default function Home() {
         return
     } else {
       const boat = document.getElementById('boat-container')
-    boat.classList.add('boat-animation')
-    boat.addEventListener('animationend', () => {
-      setBoatIsOnNearShore(false)
-      removeItemFromBoat()
-    })
+      boat.classList.add('boat-animation')
+      boat.addEventListener('animationend', () => {
+        setBoatIsOnNearShore(false)
+        removeItemFromBoat()
+        setBoatIsOnFarShore(true)
+        itemHasBeenInBoat(item)
+      })
+    }
   }
-}
 
   const itemDropOff = (item) => {
     const boat = document.getElementById('boat')
@@ -100,12 +108,15 @@ export default function Home() {
   }
 
   const sendBoatToNearShore = useCallback(() => {
-    const boat = document.getElementById('boat-container')
-    boat.classList.add('boat-animation-to-nearShore')
-    boat.addEventListener('animationend', () => {
-      boat.classList.remove('boat-animation-to-nearShore', 'boat-animation')
+    const boatContainer = document.getElementById('boat-container')
+    boatContainer.classList.add('boat-animation-to-nearShore')
+    boatContainer.addEventListener('animationend', () => {
+      boatContainer.classList.remove('boat-animation-to-nearShore', 'boat-animation')
+      const boat = document.getElementById('boat')
+      boat.classList.remove('far-shore-rotate')
       setBoatIsOnNearShore(true)
       setPlaceItemInBoat([])
+      setBoatIsOnFarShore(false)
     })
   })
 
@@ -115,18 +126,11 @@ export default function Home() {
     : null
   }
 
-  // const Snow = useMemo(() => {
-  //   return (
-  //       <canvas className={'position-absolute'} id="cvs"></canvas>
-  //   ) 
-  // }, [])
-
 
   return (
     <main className={'landscape main-height'}> 
-      {/* <Snow /> */}
       <canvas className={'position-absolute'} id="cvs"></canvas>
-      <Constraints />
+      <RiddleDescription />
       <div className={'d-flex justify-content-between'}>
         <div className={'d-flex justify-content-start align-items-end'}>
           <NearShore 
@@ -140,6 +144,7 @@ export default function Home() {
           <BoatAndFarmer 
             clickedItem={clickedItem}
             items={items}
+            boatIsOnFarShore={boatIsOnFarShore}
             placeItemInBoat={placeItemInBoat}
             itemOnFarShore={itemOnFarShore}
             boatIsOnNearShore={boatIsOnNearShore}
@@ -151,6 +156,7 @@ export default function Home() {
           itemOnFarShore={itemOnFarShore}
           items={items}
           animationEnd={animationEnd}
+          hasBeenInBoat={hasBeenInBoat}
         />
       </div>
     </main>

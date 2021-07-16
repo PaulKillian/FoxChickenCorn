@@ -10,10 +10,11 @@ function BoatAndFarmer(props) {
                     props.boatIsOnNearShore
                     ? () => props.sendBoatToFarShore()
                     : () => props.sendBoatToNearShore()
-                }>
+                }
+                className={props.boatIsOnFarShore && 'boat-animation'}>
                 <div id={'boat'} className={'d-flex flex-column justify-content-end float'}
                 className={
-                        props.itemOnFarShore.length !== 0
+                        props.boatIsOnFarShore
                         ? 'd-flex flex-column justify-content-end float far-shore-rotate' 
                         : 'd-flex flex-column justify-content-end float'
                     }> 

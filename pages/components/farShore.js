@@ -8,7 +8,7 @@ export const FarShore = (props) => {
     if (props.animationEnd) {
         return (
             <div className={'d-flex justify-content-end align-items-end'}>
-            {props.itemOnFarShore.map(item => {
+            {props.hasBeenInBoat.map(item => {
                 return (
                     <Image onClick={() => props.checkItem(item)}
                     key={item.id}

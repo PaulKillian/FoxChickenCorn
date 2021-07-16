@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { useEffect } from 'react/cjs/react.development'
 import poof from '../../public/images/poof.png'
 
 const disabled = () => {
@@ -7,13 +8,13 @@ const disabled = () => {
 
 export const NearShore = (props) => {
   if (props.clickedItem) {
-    console.log(props.clickedItem)
     return (
       <div className={'d-flex justify-content-start align-items-end item'}>
         {props.items.map(item => {
-          // console.log({poof: poof}, {itemImg: item.img})
           return (
-            <Image className={props.clickedItem.hidden === item.alt ? 'hidden' : null}
+            <Image className={props.hasBeenInBoat.map(boatItem => {
+              if(boatItem.alt === item.alt) return 'hidden'
+            })} 
             onClick={props.placeItemInBoat.length > 0
                 ? () => disabled()
                 : () => props.checkItem(item)

@@ -1,7 +1,6 @@
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react/cjs/react.development';
+import { useEffect, useState, } from 'react/cjs/react.development';
 
-export const Constraints = () => {
+export const RiddleDescription = (props) => {
     const [refresh, setrefresh] = useState(false);
     
     useEffect(() => {
@@ -10,6 +9,7 @@ export const Constraints = () => {
 
     return (
         <div className={'py-3 d-flex justify-content-center mb-3'}>
+            <canvas className={'position-absolute'} id="cvs"></canvas>
             <div className={'glass col-6'}>
                 <h1 className={'text-center text-white'}>THE FOX, CHICKEN AND CORN</h1>
                 <h5 className={'p-3 text-white'}>
@@ -23,6 +23,7 @@ export const Constraints = () => {
                 </h5>
                 <button className={'bt-color m-3 mb-4 p-2'} 
                     onClick={() => setrefresh(true)}>Try Again</button>
+                {/* <button>{snow()}</button> */}
             </div>
         </div>
     )
