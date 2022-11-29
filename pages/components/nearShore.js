@@ -6,11 +6,13 @@ export const NearShore = (props) => {
   const clickedItem = (event) => {
     const newScene = []
     props.nearShoreScene.map(item => {
-      if (item.id !== event.target.id) {
+      if (item.id === '1' || item.id === '2') {
+        const index = item.indexOf(item.id);
+        index.splice(index, 1, item);
+        props.setNearShoreScene(index)
+      } else if (item.id !== event.target.id) {
         newScene.push(item)
-      } else {
-        props.
-      }   
+      } 
     });
     props.setNearShoreScene(newScene)
   }
