@@ -1,50 +1,36 @@
 import Image from 'next/image'
-import { useEffect } from 'react/cjs/react.development'
 import poof from '../../public/images/poof.png'
-
-const disabled = () => {
-  return
-}
+import { useState, useEffect } from 'react';
 
 export const NearShore = (props) => {
-  if (props.clickedItem) {
-    return (
-      <div className={'d-flex justify-content-start align-items-end item'}>
-        {props.items.map(item => {
-          return (
-            <Image className={props.hasBeenInBoat.map(boatItem => {
-              if(boatItem.alt === item.alt) return 'hidden'
-            })} 
-            onClick={props.placeItemInBoat.length > 0
-                ? () => disabled()
-                : () => props.checkItem(item)
-              } 
-              key={item.id}
-              src={props.clickedItem.dead === item.alt ? poof : item.img}
-              alt={item.alt} 
-              width={130}
-              height={150}
-            />
-          )
-        })}  
-      </div>
-    )
-  } else {
-    return (
-      <div className={'d-flex justify-content-start align-items-end item'}>
-        {props.items.map(item => {
-          return (
-            <Image onClick={() => props.checkItem(item)} 
-              key={item.id}
-              src={item.img} 
-              alt={item.alt} 
-              width={130}
-              height={150}
-            />
-          )
-        })}  
-      </div>
-    )
+  const clickedItem = (event) => {
+    const newScene = []
+    props.nearShoreScene.map(item => {
+      if (item.id !== event.target.id) {
+        newScene.push(item)
+      } else {
+        props.
+      }   
+    });
+    props.setNearShoreScene(newScene)
   }
+
+  return (
+    <div className={'d-flex justify-content-start align-items-end item'}>
+      {props.nearShoreScene.map(item => {
+        return (
+          <Image 
+            id={item.id}
+            key={item.id}
+            src={item.img} 
+            alt={item.alt} 
+            width={130}
+            height={150}
+            onClick={() => {clickedItem(event)}}
+          />
+        )
+      })}  
+    </div>
+  )
 }
 
