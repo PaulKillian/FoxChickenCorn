@@ -26,3 +26,5 @@ export const Constraints = () => {
         </div>
     )
 }
+
+export default Constraints
